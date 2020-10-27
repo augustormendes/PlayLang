@@ -1,0 +1,8 @@
+WINDOW_SIZE: 400,500
+//Tipo deve ser INT
+INTEGER contador = ZERO;
+
+Scene jogo(
+	"Este é o pior jogo do mundo, nele contamos números. Estamos no número " contador
+	[["Próximo"(contador = contador + 1)]]->jogo
+);

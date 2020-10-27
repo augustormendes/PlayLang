@@ -1,0 +1,42 @@
+
+WINDOW_SIZE: 400,500   
+INT horario = ZERO;      
+STRING diaDaSemana = "Domingo"; 
+STRING nomeMarmota = "Marvin";           
+BOOL marmotaHiperativa = false;        
+INT felicidadeMarmota = 5;               
+INT quantidadeQueijo = 3;       
+  
+globalEvent{
+	horario = horario + 1
+}
+
+//Lembre-se de alterar o caminho dos arquivos.                                  
+Scene cafeDaManha(                 
+	"Nada melhor do que um café da manhã na companhia de sua marmota de estimação " nomeMarmota". Você tem "quantidadeQueijo " pedaços de queijo minas"
+	[["Tomar um gole de café"]]-> quenteDemais
+	IF(quantidadeQueijo > 0){
+	 
+	[["Acho que "nomeMarmota" merece um pedacinho de queijo minas!"]] -> marmotaAgradecida
+	}  
+	ELSE{    
+		[["Droga, acabou o queijo, vou ter que ir comprar mais"]]->tragedia
+	}   
+);         
+           
+Scene marmotaAgradecida(
+	"A marmota solta um guincho de alegria e começa a mordiscar o queijo. Ela devora o laticínio em um piscar de olhos"
+	<"/home/augusto/marmota.jpg">
+	[[nomeMarmota"! Que fofo!" (felicidadeMarmota = felicidadeMarmota +1 quantidadeQueijo = quantidadeQueijo - 1 )]]
+	if(true)->cafeDaManha else->cafeDaManha
+);
+Scene quenteDemais(
+	"Você queima a lingua, talvez seja melhor esperar o café esfriar. São "horario " horas."
+	[["Droga"]]->cafeDaManha
+); 
+Scene tragedia(
+	"Você acaba de deixar sua casa em busca de queijo quando escorrega em uma casca de banana e morre"
+    <"/home/augusto/banana.jpg">
+    PlaySound("/home/augusto/banana.wav")
+	[["Puxa vida..."(felicidadeMarmota = 5 quantidadeQueijo=3)]]->cafeDaManha
+);

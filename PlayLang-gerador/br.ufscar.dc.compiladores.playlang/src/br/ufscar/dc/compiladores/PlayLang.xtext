@@ -1,0 +1,70 @@
+grammar br.ufscar.dc.compiladores.PlayLang with org.eclipse.xtext.common.Terminals
+generate playLang "http://www.ufscar.br/dc/compiladores/PlayLang"
+
+
+Game: "WINDOW_SIZE:"linha=INT","coluna=INT declaracoes_globais += (Declaracao)* evento =(EventoGlobal)? cenas+= (Cena)* ;
+
+EventoGlobal: "globalEvent{" comandos+=Comando+ "}";
+/*Foi necessário usar a keyword ZERO na declaração de ints de valor 0
+ *pois o validador de tipos verifica se o valor foi atribuido a string,int ou bool,
+ * mas um int não inicializado tem valor zero, então é necessário usar a palavra chave
+ * para não dar erro. 
+ * Admito que é um tapa-buraco, mas modificar a regra INT de Terminals para retornar string
+ * causa problemas mais graves, e não podemos usar ?= pois o gerador precisa desses valores
+*/
+Declaracao: tipo=Tipo name=ID "="  (string=STRING|bool=BOOL|int=INT|zero="ZERO") ";";
+Cena:"Scene" name=ID "("   (textos+=Texto)+ (imagem=Imagem)? (sound=PlaySound)? (escolhas+=Escolhas)+   ");";
+
+//Imagem inclue o caminho e opcionalmente as dimensões para os quais deve ser redimensionada
+Imagem:"<" caminho = STRING  ( ","linha = INT','coluna = INT)?  ">" ;
+
+//Texto de uma cena ou escolha pode conter variáveis e strings, possibilitando a concatenação
+Texto: (text=STRING |var=[Declaracao]);
+
+//As palavras-chave IF e ELSE definem quando um conjunto de escolhas será visível
+Escolhas:(singleChoice = Escolha) |(hasIf?="IF""("expressaoIf=Expressao")" "{" escolhasIF+=Escolhas+"}" (hasElse?="ELSE""{" escolhasELSE+=Escolhas+"}" )? )  ;
+
+//Os comandos entre parênteses são executados quando o jogador opta pela escolha
+Escolha: "[[" (textos+=Texto)+ ("("comando += Comando+")")? "]]" (if=If|"->"id=[Cena]);
+
+
+Comando: Atribuicao| Random;
+
+Random:"Random""("id=[Declaracao]",["((possibilidadesInt+= INT (","possibilidadesInt+=INT)*)|(possibilidadesString+= STRING (","possibilidadesString+=STRING)*)|(possibilidadesBool+=BOOL (","possibilidadesBool+=BOOL)*))"]"")";
+PlaySound: "PlaySound""(" file_path=STRING")";
+
+//As palavras-chave if e else definem para qual estado uma dada escolha irá levar
+If:"if" "(" expressaoIf=Expressao")" "->"idIf=[Cena]  ("else" ( elif=If|("->"idElse=[Cena])) );
+
+Atribuicao:  id=[Declaracao] "=" (expressao=Expressao|string=STRING);
+
+Expressao: termos+=TermoLogico (ou+=OU termos+=TermoLogico)*;
+
+TermoLogico: fatores+=FatorLogico (e+=E fatores+=FatorLogico )*;
+
+FatorLogico: (nao?=NAO)? parcela=Parcela_logica;
+
+Parcela_logica: p= BOOL| exp=ExpressaoRelacional;
+
+ExpressaoRelacional: expressoes+=ExpressaoAritmetica (op+=OPRELACIONAL expressoes+=ExpressaoAritmetica)*;
+
+ExpressaoAritmetica: termos+=Termo (op+=OP1 termos+=Termo)*;
+Termo: fatores+=Fator (op+=OP2 fatores+=Fator)*;
+Fator: parcelas+=Parcela (op+='%' parcelas+=Parcela)*;
+
+ 
+
+Parcela: sub?=('-')? (id=[Declaracao] | int=INT ); 
+OP1: '+'|'-';
+OP2:'*' |'/';
+OPRELACIONAL:'=='|'!='|'>='|'<='|'>'|'<';
+
+
+BOOL:"true"|"false";
+E: '&';
+OU:'|';
+NAO:'!';
+
+Tipo: "STRING" | "INT" | "BOOL";
+
+

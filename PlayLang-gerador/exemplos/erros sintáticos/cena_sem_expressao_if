@@ -1,0 +1,39 @@
+WINDOW_SIZE:400,500
+INT moeda = 30;
+STRING horario = "dia";
+BOOL isNightTime = false;
+BOOL amaldicoado = false;
+Scene vila(
+	"Você se encontra no centro de uma pequena vila. No centro dela há um fonte. Você tem "moeda" moedas. Está de "horario
+	IF{
+		[["Jogar uma moeda no poço"(moeda = moeda - 1)]] if(isNightTime)->brilho else->nada 
+	}
+	ELSE{
+		[["Pegar moeda do poço"(moeda = moeda + 1 amaldicoado = true)]]->vila
+	}
+	[["Explore os edifícios próximos"]]->lojas
+);
+
+Scene lojas(
+	"Você vê uma taverna, um ferreiro e um mercador viajante vendendo temperos"
+	[["Voltar para o centro"]]->vila
+	IF(moeda > 3){
+	[["Passar um tempo fazendo umas comprinhas."(moeda = moeda - 2 isNightTime = true horario="noite") ]]->vila
+	}
+	
+	//Mais escolhas aqui
+);
+Scene nada(
+	"Nada acontece além de você ficar uma moeda mais pobre. Mas você sente que há algo de especial nesse poço..."
+	[["Tem algo faltando aqui."]]->vila
+);
+Scene brilho(
+	"Quando a moeda entra em contato com a água, o poço começa a emitir uma certa luz esverdeada."
+	[["Tocar a água"]]->restoDoJogo
+);
+
+Scene restoDoJogo(
+	"Aqui ficaria o resto do jogo"
+	[["Voltar"]]->vila
+);
+

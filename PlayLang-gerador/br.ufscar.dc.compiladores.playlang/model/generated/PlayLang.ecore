@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="playLang" nsURI="http://www.ufscar.br/dc/compiladores/PlayLang"
+    nsPrefix="playLang">
+  <eClassifiers xsi:type="ecore:EClass" name="Game">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="linha" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="coluna" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="declaracoes_globais" upperBound="-1"
+        eType="#//Declaracao" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="evento" eType="#//EventoGlobal"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cenas" upperBound="-1"
+        eType="#//Cena" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventoGlobal">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="comandos" upperBound="-1"
+        eType="#//Comando" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Declaracao">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tipo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="string" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bool" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="int" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="zero" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Cena">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="textos" upperBound="-1"
+        eType="#//Texto" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imagem" eType="#//Imagem"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sound" eType="#//PlaySound"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="escolhas" upperBound="-1"
+        eType="#//Escolhas" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Imagem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="caminho" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="linha" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="coluna" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Texto">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="var" eType="#//Declaracao"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Escolhas">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="singleChoice" eType="#//Escolha"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasIf" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressaoIf" eType="#//Expressao"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="escolhasIF" upperBound="-1"
+        eType="#//Escolhas" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasElse" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="escolhasELSE" upperBound="-1"
+        eType="#//Escolhas" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Escolha">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="textos" upperBound="-1"
+        eType="#//Texto" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="comando" upperBound="-1"
+        eType="#//Comando" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="if" eType="#//If" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="id" eType="#//Cena"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Comando">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="id" eType="#//Declaracao"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Random" eSuperTypes="#//Comando">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="possibilidadesInt" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="possibilidadesString" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="possibilidadesBool" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PlaySound">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="file_path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="If">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressaoIf" eType="#//Expressao"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="idIf" eType="#//Cena"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elif" eType="#//If" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="idElse" eType="#//Cena"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Atribuicao" eSuperTypes="#//Comando">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressao" eType="#//Expressao"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="string" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Expressao">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="termos" upperBound="-1"
+        eType="#//TermoLogico" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ou" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TermoLogico">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fatores" upperBound="-1"
+        eType="#//FatorLogico" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="e" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FatorLogico">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nao" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parcela" eType="#//Parcela_logica"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parcela_logica">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="p" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="exp" eType="#//ExpressaoRelacional"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpressaoRelacional">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressoes" upperBound="-1"
+        eType="#//ExpressaoAritmetica" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpressaoAritmetica">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="termos" upperBound="-1"
+        eType="#//Termo" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Termo">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="fatores" upperBound="-1"
+        eType="#//Fator" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Fator">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parcelas" upperBound="-1"
+        eType="#//Parcela" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="op" unique="false" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parcela">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sub" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="id" eType="#//Declaracao"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="int" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+</ecore:EPackage>

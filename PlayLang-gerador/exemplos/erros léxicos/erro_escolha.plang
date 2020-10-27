@@ -1,0 +1,23 @@
+WINDOW_SIZE: 1000,700
+
+Scene cafeDaManha(
+	"O que você fará de café da manhã hoje?"
+	["Nada, eu não gosto de café da manhã"]->objecao
+	[["Nada melhor que sucrilhos Kellogs(TM) para um café da manhã nutritivo"]]->compensacao
+);
+
+Scene objecao(
+	"Mas café da manhã é a refeição mais importante d..."
+	[["... sem querer ser chato mas foi comprovado que pular o café da manhã não causa prejuizo. No começo do século 20 a indústria de cereais..."]]
+	->chato
+);
+
+Scene chato(
+"Meu deus você é chato... Vamos tentar de novo."
+[["...OK"]]->cafeDaManha	
+);
+
+Scene compensacao(
+	"Muito bem, deu pra ver que o dinheiro caiu na conta"
+	[["Eu ainda não vou tomar café da manhã!"]]->cafeDaManha
+);

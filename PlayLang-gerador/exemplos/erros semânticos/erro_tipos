@@ -1,0 +1,39 @@
+WINDOW_SIZE: 400,500
+INT vida = 51;
+INT vidaCoelho = 5000;
+//Verificação de declaração com mesmo nome
+INT vidaCoelho = 7000;
+INT danoCoelho = 50;
+//Verificação de tipos de variável
+INT danoJogador = "1";
+BOOL sucesso = true;
+STRING teste = "10";
+Scene jogo(
+	"Você está numa batalha feroz contra um coelho assassino. Você tem "vida" de vida, e o coelho tem "vidaCoelho
+	//Para maior imersão coloque o caminho da imagem que acompanha o exemplo
+	//Se não quiser, temos outro exemplo de validação: se o arquivo de imagem existe.
+	//O mesmo se aplica para arquivos de áudio, com a verificação adicional se o formato do arquivo é compatível.
+	<"caminho/imagem/coelho">
+	//Verificação em expressões relacionais
+	IF(vida > teste){ 
+		//Verificação de tipos em Random
+	[["Atacar"(Random(sucesso,["true","true","true","false"]))]]if(sucesso)->ataque else->dano
+}
+ELSE{
+	[["Hora de correr!"]]->fim
+}
+);
+
+Scene ataque(
+	"Você ataca o coelho, ele mal reage."
+	[["Droga!"(vidaCoelho = vidaCoelho - danoJogador)]]->jogo
+);
+Scene dano(
+	"O coelho desvia e te ataca."
+	[["Isso doeu mais do que eu pensava..."(vida = vida - danoCoelho)]]->jogo
+);
+
+Scene fim(
+	"Você pegará o coelho na próxima..."
+	[["Tentar de novo"(vida = 51 vidaCoelho = 5000)]]->jogo
+);

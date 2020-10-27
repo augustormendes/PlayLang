@@ -1,0 +1,31 @@
+WINDOW_SIZE: 400,500
+INT vida = 51;
+INT vidaCoelho = 5000;
+INT danoCoelho = 50;
+INT danoJogador = 1;
+BOOL sucesso = true;
+//Lembre-se de mudar o caminho da imagem!
+Scene jogo(
+	"Você está numa batalha feroz contra um coelho assassino. Você tem "vida" de vida, e o coelho tem "vidaCoelho
+	<"/home/augusto/bunny.jpg"> 
+	IF(vida > 10){ 
+	[["Atacar"(Random(sucesso,[true,true,true,false]))]]if(sucesso)->ataque else->dano
+} 
+ELSE{  
+	[["Hora de correr!"]]->fim
+}
+);
+
+Scene ataque(
+	"Você ataca o coelho, ele mal reage."
+	[["Droga!"(vidaCoelho = vidaCoelho - danoJogador)]]->jogo
+);
+Scene dano(
+	"O coelho desvia e te ataca."
+	[["Isso doeu mais do que eu pensava..."(vida = vida - danoCoelho)]]->jogo
+);
+
+Scene fim(
+	"Você pegará o coelho na próxima..."
+	[["Tentar de novo"(vida = 51 vidaCoelho = 5000)]]->jogo
+);
